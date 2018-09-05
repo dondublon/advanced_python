@@ -1,37 +1,40 @@
 import threading
 import time
-import logging
 
 
 n=10
 
-def consumer(cv):
-    print("consumer started")
-    with cv:
-        print("consumer waiting")
-        cv.wait()
-        print("consumer consumed")
-
-def producer(cv):
-    print("producer started")
-    with cv:
-        print("producer make resource available")
-        print("notifying all customers")
-        cv.notifyAll()
+# def consumer(cv):
+#     print("consumer started")
+#     with cv:
+#         print("consumer waiting")
+#         cv.wait()
+#         print("consumer consumed")
+#
+# def producer(cv):
+#     print("producer started")
+#     with cv:
+#         print("producer make resource available")
+#         print("notifying all customers")
+#         cv.notifyAll()
 
 
 class Producer(threading.Thread):
     def __init__(self, condition):
         super().__init__()
         self.condition = condition
-        self.current_number = None
+        self.condition.current_number = 0
 
     def run(self):
         print("producer started")
-        with self.condition:
-            print("producer make resource available")
-            print("notifying all customers")
-            self.condition.notifyAll()
+        for i in range(n):
+            self.condition.current_number += 1
+            with self.condition:
+                print("producer make resource available")
+                print("notifying one thread")
+
+                self.condition.notify(1)
+            time.sleep(1)
 
 
 class Consumer(threading.Thread):
@@ -43,10 +46,11 @@ class Consumer(threading.Thread):
 
     def run(self):
         print("consumer started")
-        with self.condition:
-            print("consumer waiting")
-            self.condition.wait()
-            print("consumer consumed")
+        while True:
+            with self.condition:
+                print("consumer waiting")
+                self.condition.wait()
+            print(f"consumer {self.name} consumed {self.condition.current_number}")
 
 
 cond = threading.Condition()
@@ -58,9 +62,9 @@ pd = Producer(cond) #threading.Thread(name='producer', target=producer, args=(co
 # pd = threading.Thread(name='producer', target=producer, args=(cond,))
 
 cs1.start()
-time.sleep(2)
+time.sleep(1)
 cs2.start()
-time.sleep(2)
+time.sleep(1)
 pd.start()
 
 #cs1.join()
