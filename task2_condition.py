@@ -31,7 +31,7 @@ class Producer(threading.Thread):
         # for i in range(n + 1):
         #     self.current_number = i
         print("Producer", self.condition._lock)
-        self.condition.notify_all()
+        self.condition.notifyAll()
 
 
 class Consumer(threading.Thread):
@@ -42,21 +42,19 @@ class Consumer(threading.Thread):
         self.condition = condition
 
     def run(self):
-        print(f'Consumer {self.name} thread started ...')
+        print("consumer started")
         with self.condition:
-            print(f'Consumer {self.name} waiting ...', self.condition._lock)
+            print("consumer waiting")
             self.condition.wait()
-            print(f"{self.name} got {self.condition.current_number}")
-            # time.sleep(1)
-            print('Consumer consumed the resource')
+            print("consumer consumed")
 
 
 cond = threading.Condition()
-# cs1 = Consumer("consumer-1", 0, cond)
-# cs2 = Consumer("consumer-2", 1, cond)
+cs1 = Consumer("consumer-1", 0, cond)
+cs2 = Consumer("consumer-2", 1, cond)
 # pd = Producer(cond) #threading.Thread(name='producer', target=producer, args=(condition,))
-cs1 = threading.Thread(name='consumer1', target=consumer, args=(cond,))
-cs2 = threading.Thread(name='consumer2', target=consumer, args=(cond,))
+#cs1 = threading.Thread(name='consumer1', target=consumer, args=(cond,))
+#cs2 = threading.Thread(name='consumer2', target=consumer, args=(cond,))
 pd = threading.Thread(name='producer', target=producer, args=(cond,))
 
 cs1.start()
