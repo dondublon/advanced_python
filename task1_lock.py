@@ -21,7 +21,7 @@ class MyThread (threading.Thread):
             # Free lock to allow another thread work
             time.sleep(0.1)  # take a time to output our number.
             MyThread.thread_lock.release()
-            time.sleep(0.1) # allow other thread to output his number. 
+            time.sleep(0.1)  # allow another thread to output his number.
 
 
 threads = [MyThread("Thread-1", 0), MyThread("Thread-2", 1)]
