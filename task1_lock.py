@@ -1,7 +1,9 @@
 import threading
 import time
 
-n=100
+
+n = 100
+
 
 class MyThread (threading.Thread):
     thread_lock = threading.Lock()
@@ -19,7 +21,6 @@ class MyThread (threading.Thread):
             # Free lock to allow another thread work
             MyThread.thread_lock.release()
             time.sleep(0.1)
-
 
 
 threads = [MyThread("Thread-1", 0), MyThread("Thread-2", 1)]
