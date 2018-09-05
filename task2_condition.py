@@ -27,11 +27,11 @@ class Producer(threading.Thread):
         self.current_number = None
 
     def run(self):
-        print('Producer thread started ...')
-        # for i in range(n + 1):
-        #     self.current_number = i
-        print("Producer", self.condition._lock)
-        self.condition.notifyAll()
+        print("producer started")
+        with self.condition:
+            print("producer make resource available")
+            print("notifying all customers")
+            self.condition.notifyAll()
 
 
 class Consumer(threading.Thread):
@@ -52,10 +52,10 @@ class Consumer(threading.Thread):
 cond = threading.Condition()
 cs1 = Consumer("consumer-1", 0, cond)
 cs2 = Consumer("consumer-2", 1, cond)
-# pd = Producer(cond) #threading.Thread(name='producer', target=producer, args=(condition,))
+pd = Producer(cond) #threading.Thread(name='producer', target=producer, args=(condition,))
 #cs1 = threading.Thread(name='consumer1', target=consumer, args=(cond,))
 #cs2 = threading.Thread(name='consumer2', target=consumer, args=(cond,))
-pd = threading.Thread(name='producer', target=producer, args=(cond,))
+# pd = threading.Thread(name='producer', target=producer, args=(cond,))
 
 cs1.start()
 time.sleep(2)
