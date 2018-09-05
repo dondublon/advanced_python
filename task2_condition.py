@@ -23,10 +23,9 @@ class Producer(threading.Thread):
 
 
 class Consumer(threading.Thread):
-    def __init__(self, name, starting, condition):
+    def __init__(self, name, condition):
         threading.Thread.__init__(self)
         self.name = name
-        self.current = starting
         self.condition = condition
 
     def run(self):
@@ -41,8 +40,8 @@ class Consumer(threading.Thread):
 
 
 cond = threading.Condition()
-cs1 = Consumer("consumer-1", 0, cond)
-cs2 = Consumer("consumer-2", 1, cond)
+cs1 = Consumer("consumer-1", cond)
+cs2 = Consumer("consumer-2", cond)
 pd = Producer(cond)
 
 cs1.start()
