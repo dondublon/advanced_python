@@ -1,0 +1,10 @@
+Output numbers from 0..100 in order. First thread outputs even numbers. Second thread outputs odd numbers.
+Write 5 scripts for each synchronization object:
+1. Lock
+2. Condition
+3. Semaphore
+4. Event
+5. Timer
+The only one type of synchronization object has to be used per script.
+
+P.S.: You can define your own task. The only mandatory condition is to write 5 scripts with listed above objects for one task. Please provide task description in the pull request in this case.
