@@ -1,7 +1,7 @@
 import threading
 import time
 
-n = 10
+n = 100
 
 
 def foo(ev):
@@ -26,6 +26,7 @@ class MyThread(threading.Thread):
             self.current += 2
             time.sleep(0.1)
             self.ev.set()
+            time.sleep(0.1)  # give another thread time to check the event.
 
 
 my_event = threading.Event()
