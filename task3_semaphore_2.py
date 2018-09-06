@@ -12,7 +12,6 @@ class MyThread(threading.Thread):
         self.current = starting
 
     def run(self):
-        # print("consumer started")
         while self.current <= n:
             self.sem.acquire()
             print(self.name, self.current)
