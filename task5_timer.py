@@ -16,7 +16,7 @@ def print_num(name, number):
 
 
 t1 = Timer(0, print_num, args=("1", 0))
-t2 = Timer(0, print_num, args=("1", 1))
+t2 = Timer(0, print_num, args=("2", 1))
 t1.start()
 time.sleep(tick)
 t2.start()
