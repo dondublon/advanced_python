@@ -4,11 +4,6 @@ import time
 n = 100
 
 
-def foo(ev):
-    print('Foo', end='')
-    ev.set()
-
-
 class MyThread(threading.Thread):
     def __init__(self, name, ev, starting):
         super().__init__()
@@ -19,7 +14,6 @@ class MyThread(threading.Thread):
     def run(self):
         while self.current <= n:
             if not self.ev.is_set():
-                # print('Waiting ...')
                 self.ev.wait(1)
             self.ev.clear()
             print(self.name, self.current)
