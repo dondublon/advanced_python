@@ -10,8 +10,8 @@ tick = 0.1
 
 def print_num(name, number):
     print("pseudo-thread name:", name, number)
-    if number+1 < n:
-        t = Timer(tick * 2, function=print_num, args=(name, number+2))
+    if number + 1 < n:
+        t = Timer(tick * 2, function=print_num, args=(name, number + 2))
         t.start()
 
 
