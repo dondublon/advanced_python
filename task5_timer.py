@@ -4,7 +4,8 @@ import time
 n = 100
 tick = 0.1
 
-# I use "pseudo-threads" - Timer that invokes another timer in his working function.
+# I use "pseudo-threads" -
+# Timer that invokes another timer in his working function.
 
 
 def print_num(name, number):

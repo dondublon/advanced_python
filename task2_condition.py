@@ -12,7 +12,8 @@ class Producer(threading.Thread):
 
     def run(self):
         # print("producer started")
-        for i in range(n+2):  # +2 is needed to execute exit condition in Consumers.
+        for i in range(n+2):
+            # +2 is needed to execute exit condition in Consumers.
             self.condition.current_number += 1
             with self.condition:
                 # print("producer make resource available")
